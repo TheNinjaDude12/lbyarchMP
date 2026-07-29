@@ -3,7 +3,7 @@
 
 # Car Acceleration Calculator — C + x86-64 Assembly (NASM)
 
-**Submitted by:** Frederick Voltair R. Garcia Jr.
+**Submitted by:** Derick *(solo submission)*
 
 Computes vehicle acceleration (m/s²) from a Y×3 matrix of `[Initial Velocity (km/h), Final Velocity (km/h), Time (s)]` per car. C handles input, memory, and output; the numeric computation is done in x86-64 assembly using **scalar SSE2 floating-point instructions**.
 
@@ -133,9 +133,21 @@ Tested with:
 - Deceleration cases (Vf < Vi), to confirm correct handling of negative acceleration.
 - A single-row input (Y = 1).
 - A 5-row batch including a Vi = Vf case (expected acceleration = 0).
-- Fractional/decimal-heavy Vi/Vf/T values (`Test1.png`).
-- Near-zero acceleration from large time values, to confirm correct rounding down to 0 (`Test2.png`).
-- A 10-row mixed batch covering acceleration, deceleration, and zero-difference rows together (`Test3.png`).
+- Fractional/decimal-heavy Vi/Vf/T values.
+- Near-zero acceleration from large time values, to confirm correct rounding down to 0.
+- A 10-row mixed batch covering acceleration, deceleration, and zero-difference rows together.
 - Y = 10, 100, 1000, 10000 randomly generated data for the benchmark.
 
-All cases produced `ALL ROWS MATCH` against the independent C reference calculation. See `Test1.png`, `Test2.png`, `Test3.png`, `Final_output.png`, and `Running.png` in this repo for the runtime screenshots.
+All cases produced `ALL ROWS MATCH` against the independent C reference calculation.
+
+**Test 1 — fractional/decimal-heavy values:**
+
+![Test 1 output](Test1.png)
+
+**Test 2 — near-zero acceleration (large T, small Vf-Vi):**
+
+![Test 2 output](Test2.png)
+
+**Test 3 — 10-row mixed acceleration/deceleration batch:**
+
+![Test 3 output](Test3.png)
