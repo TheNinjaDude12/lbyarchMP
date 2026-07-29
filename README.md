@@ -3,7 +3,7 @@
 
 # Car Acceleration Calculator — C + x86-64 Assembly (NASM)
 
-**Submitted by:** Derick *(solo submission)*
+**Submitted by:** Frederick Voltair R. Garcia Jr.
 
 Computes vehicle acceleration (m/s²) from a Y×3 matrix of `[Initial Velocity (km/h), Final Velocity (km/h), Time (s)]` per car. C handles input, memory, and output; the numeric computation is done in x86-64 assembly using **scalar SSE2 floating-point instructions**.
 
