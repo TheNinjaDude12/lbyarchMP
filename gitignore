@@ -1,0 +1,25 @@
+# Visual Studio build output
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+*.ilk
+*.pdb
+*.obj
+*.exe
+*.exp
+*.lib
+*.log
+*.tlog
+
+# Visual Studio IDE files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NASM listing files (if generated)
+*.lst
