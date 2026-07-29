@@ -114,7 +114,7 @@ The project files (`main.c`, `accel.asm`, `Project2.vcxproj`, `Project2.sln`) li
 ### Option B — Command line, no IDE
 Open a **"Developer Command Prompt for VS"** (has `cl.exe` on `PATH`), then:
 ```bash
-cd Project2/Project2/Project2
+cd lbyarchMP\Project2\Project2
 nasm -f win64 accel.asm -o accel.obj
 cl main.c accel.obj /Fe:Project2.exe
 Project2.exe
