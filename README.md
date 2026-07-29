@@ -80,16 +80,46 @@ Benchmarked using `QueryPerformanceCounter` (Windows high-resolution timer). For
 - At small Y (10, 100), the measured time is close to the noise floor of what any timer can resolve — even `QueryPerformanceCounter`, which is far more precise than `clock()`, is measuring durations in the tens-to-hundreds of nanoseconds range here, where OS scheduling jitter and cache state can meaningfully affect a single reading. This is exactly why the assignment requires averaging over 30 runs rather than trusting a single measurement: it smooths out that noise and gives a more representative number.
 - No SIMD-width parallelism is being used (the assignment specifically calls for *scalar* SIMD instructions — one double at a time via `movsd`/`mulsd`/`divsd`, not packed/vectorized `mulpd`-style instructions), so there's no expectation of sub-linear scaling from parallel lanes; the near-linear result is the expected outcome for this instruction choice.
 
+## Getting the project (clone or download)
+
+**Clone with Git (recommended):**
+```bash
+git clone https://github.com/IbyarchMP/Project2.git
+cd Project2/Project2/Project2
+```
+The project files (`main.c`, `accel.asm`, `Project2.vcxproj`, `Project2.sln`) live at that path — the repo has a nested `Project2/Project2` folder structure.
+
+**Or download as ZIP:**
+1. On the GitHub repo page, click **Code → Download ZIP**.
+2. Extract it, then navigate into `Project2/Project2/` inside the extracted folder — that's where the actual `.sln` and source files are.
+
 ## Building
 
-1. Open the `.sln` in Visual Studio.
-2. Requires [NASM](https://www.nasm.us/) installed and on `PATH`.
-3. `main.c` contains both the correctness-check flow and the benchmark flow.
-4. `accel.asm` is configured as a **Custom Build Tool** item:
+### Prerequisites
+- **Visual Studio** (2019 or later) with the **Desktop development with C++** workload installed.
+- **[NASM](https://www.nasm.us/)** installed and added to your system `PATH`. Verify with:
+  ```bash
+  nasm -v
+  ```
+
+### Option A — Visual Studio GUI
+1. `cd` into `Project2/Project2/Project2` (see above), then open `Project2.sln`.
+2. `main.c` contains both the correctness-check flow and the benchmark flow.
+3. `accel.asm` is already configured as a **Custom Build Tool** item in the project — no setup needed when opening the existing `.sln`:
    - Command Line: `nasm -f win64 "%(FullPath)" -o "$(IntDir)%(Filename).obj"`
    - Outputs: `$(IntDir)%(Filename).obj`
-4. Project → Properties → Linker → Input → Additional Dependencies includes `legacy_stdio_definitions.lib` (only needed if any demo/debug code calls CRT stdio from asm; not required by `compute_accel` itself).
-5. Build → Rebuild Solution, then Ctrl+F5 to run.
+4. **Build → Rebuild Solution**.
+5. **Ctrl+F5** (Start Without Debugging) to run — plain F5 closes the console immediately after the program finishes, so use Ctrl+F5.
+
+### Option B — Command line, no IDE
+Open a **"Developer Command Prompt for VS"** (has `cl.exe` on `PATH`), then:
+```bash
+cd Project2/Project2/Project2
+nasm -f win64 accel.asm -o accel.obj
+cl main.c accel.obj /Fe:Project2.exe
+Project2.exe
+```
+This assembles `accel.asm` with NASM, compiles `main.c` with MSVC, links both object files into `Project2.exe`, and runs it — all without opening Visual Studio's GUI.
 
 ## Testing
 
